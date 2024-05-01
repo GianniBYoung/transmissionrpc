@@ -7,6 +7,8 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+
+	"github.com/charmbracelet/log"
 )
 
 const csrfHeader = "X-Transmission-Session-Id"
@@ -29,10 +31,13 @@ func (c *Client) rpcCall(ctx context.Context, method string, arguments interface
 
 func (c *Client) request(ctx context.Context, method string, arguments interface{}, result interface{}, retry bool) (err error) {
 	// Let's avoid crashing if not instanciated properly
+	log.Debug("Crash?")
 	if c.http == nil {
+		log.Debug("Kinda?")
 		err = errors.New("this controller is not initialized, please use the New() function")
 		return
 	}
+	log.Debug("NO?")
 	// Prepare request payload
 	rq := requestPayload{
 		Method:    method,
